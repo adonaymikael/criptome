@@ -16,9 +16,8 @@ use App\Http\Controllers\{
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/home',[HomeController::class, 'index'])->name('home');
-Route::get('/home?keyid={$key}',[HomeController::class, 'index'])->name('home.key');
+Route::get('/',[HomeController::class, 'index'])->name('home');
+Route::get('/?keyid={$key}',[HomeController::class, 'index'])->name('home.key');
 Route::get('/login',[LoginController::class, 'index'])->name('login');
 Route::post('/login',[LoginController::class, 'login'])->name('user.login');
 Route::get('/minha_conta/{$id}',[UserController::class, 'index'])->name('user.minha_conta');

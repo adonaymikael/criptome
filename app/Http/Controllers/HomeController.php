@@ -10,10 +10,20 @@ class HomeController extends Controller
 {
 
    public function index(){
+      if(isset($_GET['keyid'])){
       $userID = base64_decode($_GET['keyid']);
       $user = new User();
-      $data = $user->getByID($userID)[0];
-      $username = $data->nome; 
+      if(!$user->getByID($userID)){
+         return redirect()->route('login');
+      }
+      $data = $user->getByID($userID);
+      $username = $data[0]->nome; 
+      }else{
+         return redirect()->route('login');
+      }
+      
+
+
 
 
       $client = new CoinGeckoClient();

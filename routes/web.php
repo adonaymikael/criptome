@@ -5,7 +5,9 @@ use App\Http\Controllers\{
     HomeController,
     LoginController,
     UserController,
-    CriarContaController
+    CriarContaController,
+    MinhasMoedasController,
+    AdicionarMoedasController
 };
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +30,10 @@ Route::get('/minha_conta/{$id}',[UserController::class, 'index'])->name('user.mi
 Route::get('/criarConta',[CriarContaController::class, 'index'])->name('criar_conta');
 Route::get('/criarConta?error={$errors}',[CriarContaController::class, 'index'])->name('criar_conta_error');
 Route::post('/criarConta',[CriarContaController::class, 'criar_conta'])->name('user.criar_conta');
+
+Route::get('/minhasMoedas',[MinhasMoedasController::class, 'index'])->name('user.moedas');
+Route::get('/minhasMoedas?keyid={$key}',[MinhasMoedasController::class, 'index'])->name('user.moedas');
+
+Route::get('/minhasMoedas/adicionarMoeda',[AdicionarMoedasController::class, 'index'])->name('moeda.criar_moeda');
+Route::get('/minhasMoedas/adicionarMoeda?keyid={$key}',[AdicionarMoedasController::class, 'index'])->name('moeda.criar_moeda');
 

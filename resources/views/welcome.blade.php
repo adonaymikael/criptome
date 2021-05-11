@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
+        <?php
+        use Akaunting\Money\Currency;
+        use Akaunting\Money\Money;
+
+        $color= "";
+        ?>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Home</title>
+        <title>CriptoME</title>
 
         <!-- bootstrap -->
         <link rel="stylesheet" href="{{ asset('site/bootstrap.css') }}" >
@@ -68,31 +74,29 @@
                         <tbody>
                             @foreach ($allcoin[0] as $key => $moeda)
                             <tr>
-                                <td>{{$key}}</td>
-                                <td>{{$moeda['id']}}</td>
-                                <td>BRL$ {{$moeda['current_price']}}</td>
+                                <td>{{$key+1}}</td>
+                                <td>
+                                <img src="{{$moeda['image']}}" width="20" height="20">
+                                {{ucfirst($moeda['id'])}}
+                                </td>
+                                <td>{{Money::BRL($moeda['current_price'])}}</td>
 
                                 @if ($moeda['price_change_percentage_1h_in_currency'] >= 0)
-                                
-                                <td style="color: green">{{number_format($moeda['price_change_percentage_1h_in_currency'], 1, '.', ' ')."%"}}</td>  
-                                @else
-                                <td style="color: red">{{number_format($moeda['price_change_percentage_1h_in_currency'], 1, '.', ' ')."%"}}</td>  
+                                <?php $color="green"?>  @else <?php $color="red"?>
                                 @endif
+                                <td style="color:{{$color}}">{{number_format($moeda['price_change_percentage_1h_in_currency'], 1, '.', ' ')."%"}}</td> 
                                 
-                                @if ($moeda['price_change_percentage_24h_in_currency'] >= 0)
-                                <td style="color: green">{{number_format($moeda['price_change_percentage_24h_in_currency'], 1, '.', ' ')."%"}}</td>  
-                                @else
-                                <td style="color: red">{{number_format($moeda['price_change_percentage_24h_in_currency'], 1, '.', ' ')."%"}}</td> 
+                                @if ($moeda['price_change_percentage_24h_in_currency'] >= 0) 
+                                <?php $color="green"?> @else <?php $color="red"?>
                                 @endif
+                                <td style="color:{{$color}}">{{number_format($moeda['price_change_percentage_24h_in_currency'], 1, '.', ' ')."%"}}</td> 
 
                                 @if ($moeda['price_change_percentage_7d_in_currency'] >= 0)
-                                
-                                <td style="color: green">{{number_format($moeda['price_change_percentage_7d_in_currency'], 1, '.', ' ')."%"}}</td> 
-                                @else
-                                <td style="color: red">{{number_format($moeda['price_change_percentage_7d_in_currency'], 1, '.', ' ')."%"}}</td>   
+                                <?php $color="green"?> @else <?php $color="red"?>   
                                 @endif
+                                <td style="color:{{$color}}">{{number_format($moeda['price_change_percentage_7d_in_currency'], 1, '.', ' ')."%"}}</td>  
                                 
-                                <td>BRL$ {{$moeda['market_cap']}}</td>
+                                <td>{{Money::BRL($moeda['market_cap'])}}</td>
                             </tr>
                             @endforeach 
                         </tbody>

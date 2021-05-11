@@ -21,10 +21,6 @@ class HomeController extends Controller
       }else{
          return redirect()->route('login');
       }
-      
-
-
-
 
       $client = new CoinGeckoClient();
       $data = $client->simple();
@@ -33,6 +29,7 @@ class HomeController extends Controller
       $params = ['price_change_percentage' => '1h,24h,7d', 'per_page' => '10'];
 
       $allcoin[] =  $coin ->getMarkets('brl',$params);
+      //dd($allcoin);
 
        $coinDados =[
          'usuario' =>[

@@ -39,6 +39,7 @@
                                         </div>
                                         <div style="padding-top: 0.5cm ">
                                         <button type="submit" class="btn btn-success btn-lg float-right" id="btnLogin">Entrar</button>
+                                        <button type="button" class="btn btn-secondary btn-lg float-right" onclick="window.location='{{route('criar_conta')}}'" id="btnLogin">Cadastrar</button>
                                         </div>
                                     </form>
                                 </div>

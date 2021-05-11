@@ -11,7 +11,7 @@ class HomeController extends Controller
 
    public function index(){
       if(isset($_GET['keyid'])){
-      $userID = base64_decode($_GET['keyid']);
+      $userID =  base64url_decode($_GET['keyid']);
       $user = new User();
       if(!$user->getByID($userID)){
          return redirect()->route('login');
@@ -41,3 +41,8 @@ class HomeController extends Controller
       return view('welcome',$coinDados);
    }
 }
+
+
+function base64url_decode( $data ){
+   return base64_decode( strtr( $data, '-_', '+/') . str_repeat('=', 3 - ( 3 + strlen( $data )) % 4 ));
+ }

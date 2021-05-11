@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     HomeController,
     LoginController,
-    UserController
+    UserController,
+    CriarContaController
 };
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,12 @@ use App\Http\Controllers\{
 */
 Route::get('/',[HomeController::class, 'index'])->name('home');
 Route::get('/?keyid={$key}',[HomeController::class, 'index'])->name('home.key');
+
 Route::get('/login',[LoginController::class, 'index'])->name('login');
 Route::post('/login',[LoginController::class, 'login'])->name('user.login');
+
 Route::get('/minha_conta/{$id}',[UserController::class, 'index'])->name('user.minha_conta');
-Route::get('/criarConta/{$id}',[UserController::class, 'criar_conta'])->name('user.criar_conta');
+
+Route::get('/criarConta',[CriarContaController::class, 'index'])->name('criar_conta');
+Route::post('/criarConta',[CriarContaController::class, 'criar_conta'])->name('user.criar_conta');
+

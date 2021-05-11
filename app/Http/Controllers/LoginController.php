@@ -18,14 +18,22 @@ class LoginController extends Controller
          $senha = $data['password'];
 
          $login = new User();
-         $data = $login->log_in($email, $senha);
-         if(!$data){
+         if(!isset($login->log_in($email)[0])){
+          return redirect()->route('login'); 
+         }
+
+         $data = $login->log_in($email)[0];
+         if(!password_verify($senha, $data->senha)){
            return redirect()->route('login');
          }
 
-         $id = $data[0]->id;
-         $key = base64_encode($id);
+         $id = $data->id;
+         $key = base64url_encode($id);
          return redirect()->route('home.key',$key);
 
      }
+}
+
+ function base64url_encode( $data ){
+  return rtrim( strtr( base64_encode( $data ), '+/', '-_'), '=');
 }

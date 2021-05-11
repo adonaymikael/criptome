@@ -28,7 +28,7 @@ class HomeController extends Controller
 
       $params = ['price_change_percentage' => '1h,24h,7d', 'per_page' => '10'];
 
-      $allcoin[] =  $coin ->getMarkets('brl',$params);
+      $allcoin[] =  $coin ->getMarkets('BRL',$params);
       //dd($allcoin);
 
        $coinDados =[

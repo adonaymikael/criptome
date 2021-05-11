@@ -9,12 +9,11 @@ use App\Models\User;
 class AdicionarMoedasController extends Controller
 {
     public function index(){
-
-        $client = new CoinGeckoClient();
         $base64ID = $_GET['keyid'];
         $userID =  base64url_decode($_GET['keyid']);
 
-        $data = $client->simple();
+        $client = new CoinGeckoClient();
+        $coin = $client->coins();
   
         $params = ['price_change_percentage' => '1h,24h,7d', 'per_page' => '100'];
   

@@ -19,7 +19,7 @@ class CriarContaController extends Controller
         $senha2 = $data['senha2'];
 
         if($senha != $senha2){
-            return redirect()->route('criar_conta');
+            return redirect()->route('criar_conta_error','invalidPassword');
         }
 
         $novaSenha = password_hash($senha, PASSWORD_DEFAULT);
@@ -33,7 +33,7 @@ class CriarContaController extends Controller
         $user = new User;
         $return = $user->criarConta($dados);
         if(!$return['result']){
-            return redirect()->route('criar_conta');
+            return redirect()->route('criar_conta_error',$return['error']->getMessage());
         }
         $id = $return['lastid'];
         $key = base64url_encode($id);

@@ -26,5 +26,6 @@ Route::post('/login',[LoginController::class, 'login'])->name('user.login');
 Route::get('/minha_conta/{$id}',[UserController::class, 'index'])->name('user.minha_conta');
 
 Route::get('/criarConta',[CriarContaController::class, 'index'])->name('criar_conta');
+Route::get('/criarConta?error={$errors}',[CriarContaController::class, 'index'])->name('criar_conta_error');
 Route::post('/criarConta',[CriarContaController::class, 'criar_conta'])->name('user.criar_conta');
 

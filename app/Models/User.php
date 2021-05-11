@@ -39,7 +39,7 @@ class User extends Model
             $lastID = DB::getPdo()->lastInsertId();
             return ['result' => $connection, 'lastid' => $lastID];
         } catch (QueryException $ex){
-            return  ['result' => false];
+            return  ['result' => false, 'error' => $ex];
         }
     }
 }

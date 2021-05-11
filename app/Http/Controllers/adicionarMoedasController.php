@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Codenixsv\CoinGeckoApi\CoinGeckoClient;
+use App\Models\User;
 
 class AdicionarMoedasController extends Controller
 {
@@ -14,7 +15,6 @@ class AdicionarMoedasController extends Controller
         $userID =  base64url_decode($_GET['keyid']);
 
         $data = $client->simple();
-        $coin = $client->coins();
   
         $params = ['price_change_percentage' => '1h,24h,7d', 'per_page' => '100'];
   

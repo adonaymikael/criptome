@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Codenixsv\CoinGeckoApi\CoinGeckoClient;
+use App\Models\criptomoedas;
 use App\Models\User;
 
 class MinhasMoedasController extends Controller
@@ -24,13 +25,30 @@ class MinhasMoedasController extends Controller
             return redirect()->route('login');
         }
 
+        $criptomoedas = new criptomoedas();
+        $userMoedas = $criptomoedas->getByUserID($userID);
+        //dd($userMoedas);
+        $stringMoedas = "";
+        foreach ($userMoedas as $key => $value) {
+            $stringMoedas = $value->apiID.",".$stringMoedas;
+        }
+
+        $stringMoedas =  substr($stringMoedas, 0 , -1);
+        $params = ['price_change_percentage' => '1h,24h,7d', 'ids' => $stringMoedas];
+
+        $coinGeckoClient = new CoinGeckoClient();
+        $coins = $coinGeckoClient->coins();
+        $allcoin[] =  $coins ->getMarkets('BRL',$params);
+        //dd($allcoin);
+
 
         $coinDados =[
             'usuario' =>[
                'nome' => $username,
                'base64ID' => $base64ID,
                'id' => $userID
-         ]
+            ],
+            'allcoin' => $allcoin
           ];
 
 

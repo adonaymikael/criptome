@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
+        <?php 
+        use Akaunting\Money\Currency;
+        use Akaunting\Money\Money;
+        ?>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -19,7 +23,7 @@
                         <div class="col-md-6 offset-md-3">
                             <div class="card card-outline-secondary">
                                 <div class="card-header">
-                                    <h3 class="mb-0">Nova Moeda</h3>
+                                    <h3 class="mb-0">Adicione uma Criptomoeda</h3>
                                 </div>
 
                                 <div class="card-body">
@@ -34,7 +38,7 @@
                                         <input type="text" style="form-control; width: 85%" id="searchInput" onkeyup="searchCoin()" placeholder="Pesquise uma criptomoeda..." title="Digite uma criptomoeda" autocomplete="off">
                                       </div>
 
-                                    <form style="margin-top: 0.3cm" class="form" role="form" autocomplete="off" method="POST" action="{{ route('user.criar_conta') }}">
+                                    <form style="margin-top: 0.3cm" class="form" role="form" autocomplete="off" method="POST" action="{{ route('moeda.criar_moeda_insert',$usuario['base64ID'])}}">
                                         @csrf
                                         <div class="form-group overflow-auto" style="max-height: 500px;">
                                             <table class="table table-striped" id="coinTable">
@@ -42,28 +46,27 @@
                                             <tr>
                                                 <th>Selecione</th>
                                                 <th>Moeda</th>
-                                                <th>Preco</th>
+                                                <th>Preço</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($allcoin[0] as $index => $moeda)
                                             <tr>
                                                 <td>
-                                                    <input type= "checkbox" nome ="coins" value="{{$moeda['id']}}">
+                                                    <input type= "checkbox" name ="coins[]" value="{{$moeda['id']}}">
                                                 </td>
                                                 <td>
                                                     <img src="{{$moeda['image']}}" width="20" height="20">
-                                                    {{$moeda['id']}}
+                                                    {{ucfirst($moeda['id'])}}
                                                 </td>
-                                                <td>{{$moeda['current_price']}}</td>
+                                                <td>{{Money::BRL($moeda['current_price'])}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
                                             </table>
                                         </div>
                                         <div class="form-group" style="padding-top: 0.5cm">
-                                        {{-- lembrar de alterar o tipo do botao --}}
-                                         <button type="button" class="btn btn-success btn-lg float-right" id="btnLogin">Adicionar</button> 
+                                         <button type="submit" class="btn btn-success btn-lg float-right" id="btnADD">Adicionar</button> 
                                         <button type="button" class="btn btn-danger btn-lg float-right" onclick=window.location='{{route('user.moedas',$usuario['base64ID'])}}'>Voltar</button>
                                         </div>
                                     </form>

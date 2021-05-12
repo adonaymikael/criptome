@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Codenixsv\CoinGeckoApi\CoinGeckoClient;
 use App\Models\User;
+use App\Models\criptomoedas;
 
 class AdicionarMoedasController extends Controller
 {
@@ -28,6 +29,33 @@ class AdicionarMoedasController extends Controller
 
 
         return view('adicionarMoedas',$coinDados);
+    }
+
+    public function adicionarMoeda(Request $request){
+        $data = $request->all();
+        $coins = $data['coins'];
+        $Base64userID = $data['keyid'];
+        $userID = base64url_decode($Base64userID);
+
+        $criptomoedas = new criptomoedas();
+        //Verificando se a moeda existe para o usuario X
+        foreach ($coins as $key => $value) {
+            $dataVerify = $criptomoedas->verifica_moeda($userID,$value);
+            if($dataVerify){
+                //Adicionar error tag
+                return redirect()->route('moeda.criar_moeda',$Base64userID);
+            }
+        }
+
+       //Adicionando moedas para o usuario X
+        foreach ($coins as $key => $value) {
+            $data = $criptomoedas->insert_moeda($userID,$value);
+            if(!$data){
+                //Adicionar error tag
+                return redirect()->route('user.moedas',$Base64userID);
+            }
+        }
+        return redirect()->route('user.moedas',$Base64userID);
     }
 }
 

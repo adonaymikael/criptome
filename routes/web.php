@@ -37,3 +37,8 @@ Route::get('/minhasMoedas?keyid={$key}',[MinhasMoedasController::class, 'index']
 Route::get('/minhasMoedas/adicionarMoeda',[AdicionarMoedasController::class, 'index'])->name('moeda.criar_moeda');
 Route::get('/minhasMoedas/adicionarMoeda?keyid={$key}',[AdicionarMoedasController::class, 'index'])->name('moeda.criar_moeda');
 
+Route::post('/minhasMoedas/adicionarMoeda',[AdicionarMoedasController::class, 'adicionarMoeda'])->name('moeda.criar_moeda_insert');
+Route::post('/minhasMoedas/adicionarMoeda?keyid={$key}',[AdicionarMoedasController::class, 'adicionarMoeda'])->name('moeda.criar_moeda_insert');
+
+
+

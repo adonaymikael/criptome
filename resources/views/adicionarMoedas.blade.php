@@ -11,9 +11,13 @@
         <title>Nova Moeda</title>
 
         <!-- bootstrap -->
+        <link rel="stylesheet" href="{{  asset('site/myTemplate.css')}}" >
         <link rel="stylesheet" href="{{ asset('site/bootstrap.css') }}" >
         <script src="{{ asset('site/bootstrap.js') }}"></script>
         <script src="{{ asset('site/jquery.js') }}"></script>
+
+        <script src="{{ asset('site/validate/jquery.validate.js') }}"></script>
+        <script src="{{ asset('site/validate/messages_pt_BR.js')}}"></script>
     </head>
     <body>
         <div class="container py-5">
@@ -38,7 +42,7 @@
                                         <input type="text" style="form-control; width: 85%" id="searchInput" onkeyup="searchCoin()" placeholder="Pesquise uma criptomoeda..." title="Digite uma criptomoeda" autocomplete="off">
                                       </div>
 
-                                    <form style="margin-top: 0.3cm" class="form" role="form" autocomplete="off" method="POST" action="{{ route('moeda.criar_moeda_insert',$usuario['base64ID'])}}">
+                                    <form style="margin-top: 0.3cm" nome="moedaCadastro" id="moedaCadastro" class="form" role="form" autocomplete="off" method="POST" action="{{ route('moeda.criar_moeda_insert',$usuario['base64ID'])}}">
                                         @csrf
                                         <div class="form-group overflow-auto" style="max-height: 500px;">
                                             <table class="table table-striped" id="coinTable">
@@ -66,8 +70,8 @@
                                             </table>
                                         </div>
                                         <div class="form-group" style="padding-top: 0.5cm">
-                                         <button type="submit" class="btn btn-success btn-lg float-right" id="btnADD">Adicionar</button> 
-                                        <button type="button" class="btn btn-danger btn-lg float-right" onclick=window.location='{{route('user.moedas',$usuario['base64ID'])}}'>Voltar</button>
+                                         <button type="submit" class="btn btn-success btn-lg float-right" id="btnADD" onclick="showSpinCadastro()">Adicionar</button> 
+                                        <button type="button" class="btn btn-danger btn-lg float-right" onclick="window.location='{{route('user.moedas',$usuario['base64ID'])}}',showSpin()">Voltar</button>
                                         </div>
                                     </form>
                                 </div>
@@ -77,26 +81,60 @@
                 </div>
             </div>
         </div>
+
+        <div hidden class="loading" name="spin">
+            <div class="loader" style="top: 9cm"></div>
+        </div>
+
     </body> 
     
-    <script>
-        function searchCoin() {
-          var input, filter, table, tr, td, i, txtValue;
-          input = document.getElementById("searchInput");
-          filter = input.value.toUpperCase();
-          table = document.getElementById("coinTable");
-          tr = table.getElementsByTagName("tr");
-          for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-              txtValue = td.textContent || td.innerText;
-              if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-              } else {
-                tr[i].style.display = "none";
-              }
-            }       
-          }
+<script>
+function searchCoin() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("coinTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+        } else {
+        tr[i].style.display = "none";
         }
-        </script>
+    }       
+    }
+}
+</script>
+
+<script>
+    function showSpinCadastro(){
+        var p = document.getElementsByName('spin');
+        var form = $( "#moedaCadastro" );
+        let myText;
+            if(form.valid()){
+                for (i = 0; i < p.length; i++) {
+                console.log(myText, p[0].innerHTML);
+                myText = p[i];
+                break;
+            }
+            myText.removeAttribute("hidden"); 
+        }
+    }
+</script>
+
+<script>
+    function showSpin(){
+        var p = document.getElementsByName('spin');
+        let myText;
+            for (i = 0; i < p.length; i++) {
+            console.log(myText, p[0].innerHTML);
+            myText = p[i];
+            break;
+        }
+        myText.removeAttribute("hidden"); 
+    }
+</script>
 </html>

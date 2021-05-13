@@ -19,7 +19,7 @@
     </head>
     <body>
 
-      <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary mb-3">
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary mb-3" id="header" name="header">
             <div class="flex-row d-flex">
                 <button type="button" class="navbar-toggler mr-2 " data-toggle="offcanvas" title="Toggle responsive left sidebar">
                     <span class="navbar-toggler-icon"></span>
@@ -44,17 +44,17 @@
             <div class="row row-offcanvas row-offcanvas-left vh-100">
 
                 <div class="col-md-3 col-lg-2 sidebar-offcanvas h-100 overflow-auto bg-light pl-0" id="sidebar" role="navigation">
-                    <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
+                    <ul class="nav flex-column ">
                         {{-- <li class="nav-item"><a class="nav-link" href="#">Minha Conta</a></li> --}}
                     </ul>
-                    <ul class="nav flex-column sticky-top">
+                    <ul class="nav flex-column ">
                         <li class="nav-item"><a class="nav-link" href="{{route('home.key',$usuario['base64ID'])}}">Moedas</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{route('user.moedas',$usuario['base64ID'])}}">Minhas Moedas</a></li>
                     </ul>
                 </div>
                 
                 <!--/col-->
-                <main class="col main pt-5 mt-3 overflow-auto">
+                <main class="col main overflow-auto">
                     <h1 class="display-4 d-none d-sm-block">
                     Principais Criptomoedas
                     </h1>

@@ -26,7 +26,7 @@
                                     <h3 class="mb-0">Cadastro</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form class="form" id="cadastroForm" nome="cadastroForm" role="form" autocomplete="off" method="POST" >
+                                    <form class="form" id="cadastroForm" nome="cadastroForm" role="form" autocomplete="off" method="POST" action="{{ route('user.criar_conta') }}" >
                                         @csrf
                                         <div class="form-group">
                                             <label for="inputName">Nome</label>

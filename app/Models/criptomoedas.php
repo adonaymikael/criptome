@@ -31,4 +31,8 @@ class criptomoedas extends Model
         return DB::connection()->select('SELECT * FROM criptomoedas WHERE users_id = ?',[$userID]);
     }
 
+    public function delete_moedaByID(String $userID, String $moedaID){
+        return DB::connection()->delete('DELETE FROM criptomoedas WHERE users_id = ? AND apiID = ?',[$userID, $moedaID]);
+    }
+
 }

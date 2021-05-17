@@ -54,6 +54,22 @@ class MinhasMoedasController extends Controller
 
         return view('minhasMoedas',$coinDados);
     }
+
+    function excluirMoeda(Request $request){
+        $data = $request->all();
+        $coinID = $data['coinID'];
+        $userID = $data['userID'];
+        $base64ID = $data['base64ID'];
+
+        $criptomoedas = new criptomoedas();
+        $response = $criptomoedas->delete_moedaByID($userID, $coinID);
+        //Fazer error
+        if(!$response){
+            return redirect()->route('user.moedas',$base64ID);
+        }
+
+        return redirect()->route('user.moedas',$base64ID);
+    }
 }
 
 function base64url_decode( $data ){

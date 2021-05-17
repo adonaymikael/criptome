@@ -33,12 +33,12 @@ Route::post('/criarConta',[CriarContaController::class, 'criar_conta'])->name('u
 
 Route::get('/minhasMoedas',[MinhasMoedasController::class, 'index'])->name('user.moedas');
 Route::get('/minhasMoedas?keyid={$key}',[MinhasMoedasController::class, 'index'])->name('user.moedas');
+Route::post('/minhasMoedas/ExcluirMoeda',[MinhasMoedasController::class, 'excluirMoeda'])->name('moeda.excluir');
 
 Route::get('/minhasMoedas/adicionarMoeda',[AdicionarMoedasController::class, 'index'])->name('moeda.criar_moeda');
 Route::get('/minhasMoedas/adicionarMoeda?keyid={$key}',[AdicionarMoedasController::class, 'index'])->name('moeda.criar_moeda');
 
 Route::post('/minhasMoedas/adicionarMoeda',[AdicionarMoedasController::class, 'adicionarMoeda'])->name('moeda.criar_moeda_insert');
 Route::post('/minhasMoedas/adicionarMoeda?keyid={$key}',[AdicionarMoedasController::class, 'adicionarMoeda'])->name('moeda.criar_moeda_insert');
-
 
 

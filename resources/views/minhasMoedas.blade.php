@@ -15,11 +15,7 @@
         <!-- bootstrap -->
         <link rel="stylesheet" href="{{  asset('site/myTemplate.css')}}" >
         <link rel="stylesheet" href="{{ asset('site/bootstrap.css') }}" >
-        <script src="{{ asset('site/bootstrap.js') }}"></script>
-        <script src="{{ asset('site/jquery.js') }}"></script>
-
-        <script src="{{ asset('site/validate/jquery.validate.js') }}"></script>
-        <script src="{{ asset('site/validate/messages_pt_BR.js')}}"></script>
+        <link rel="stylesheet" href="{{ asset('site/bootstrap-icons.css') }}" >
     </head>
     <body>
       <nav class="navbar navbar-expand-md navbar-dark bg-primary mb-3" id="header" name="header">
@@ -75,7 +71,7 @@
                                 <th>24h</th>
                                 <th>7d</th>
                                 <th>Capitalização do mercado</th>
-                                {{-- <th>Opções</th> --}}
+                                <th>Opções</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -103,16 +99,20 @@
                                 @endif
                                 <td style="color:{{$color}}">{{number_format($moeda['price_change_percentage_7d_in_currency'], 1, '.', ' ')."%"}}</td>  
                                 
-                                <td>{{Money::BRL($moeda['market_cap'])}}</td>
+                                <td style="width: 250px">{{Money::BRL($moeda['market_cap'])}}</td>
 
-                                {{-- <td>
-                                    <a href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 0.5cm" color="red" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                    </svg>
-                                    </a>
-                                </td> --}}
+                                <td style="width: 15px">
+                                    <button class="btn" onclick="showModal({
+                                        'coinKey': '{{$key}}',
+                                        'coinName': '{{ucfirst($moeda['id'])}}',
+                                        'userID': '{{$usuario['id']}}',
+                                        'base64ID': '{{$usuario['base64ID']}}',
+                                        'coinID': '{{$moeda['id']}}',
+                                        'coinImg': '{{$moeda['image']}}'
+                                    })">
+                                        <i class="bi bi-trash" style="color:red"></i>
+                                    </button>
+                                </td>
                             </tr>
                             @endforeach 
                         </tbody>
@@ -126,6 +126,46 @@
             <div class="loader" style="top: 10cm"></div>
         </div>
 
+    <!-- Modal Excluir Criptomoeda -->
+    <div class="modal fade" id="deleteCoin" tabindex="-1" aria-labelledby="deleteCoin" aria-hidden="true">
+        <form class="form" id="deleteCoinForm" nome="deleteCoinForm" role="form" autocomplete="off" method="POST" action="{{ route('moeda.excluir') }}" >
+        @csrf
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteCoin">Deseja confirmar e excluir a moeda <br><strong><span id="coinName"></span></strong> ?</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td><span id="coinKeyText"></span></td>
+                            <td>
+                                <img id="coinImg" width="20" height="20"> 
+                                <span id="coinName"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            <!-- hidden Form --->
+            <input hidden type="text" id="coinID" name="coinID">
+            <input hidden type="text" id="userID" name="userID">
+            <input hidden type="text" id="base64ID" name="base64ID">
+            </div>
+            <div class="modal-footer">
+                <fieldset class="w-100">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>  
+                <button type="submit" class="btn btn-danger">Excluir</button> 
+                <fieldset>   
+            </div>
+        </form>
+          </div>
+        </div>
+      </div>
+
+      <script src="{{ asset('site/bootstrap.js') }}"></script>
+      <script src="{{ asset('site/jquery.js') }}"></script>
     </body>
 
 </html>
@@ -144,4 +184,24 @@
         myText.removeAttribute("hidden"); 
         
     }
+</script>
+
+<script>
+    function showModal(allCoinInfo){
+        //console.log(allCoinInfo);
+        // coinKey, coinName, userID, base64ID, coinID, coinImg
+        var coinKeyTable = parseInt(allCoinInfo['coinKey'])+1;
+        var modal = $('#deleteCoin');
+        $('#deleteCoin #coinName').text(allCoinInfo['coinName']);
+        $('#deleteCoin #userID').val(allCoinInfo['userID']);
+        $('#deleteCoin #base64ID').val(allCoinInfo['base64ID']);
+        $('#deleteCoin #coinKey').val(allCoinInfo['coinKey']);
+        $('#deleteCoin #coinKeyText').text(coinKeyTable);
+        $('#deleteCoin #coinID').val(allCoinInfo['coinID']);
+        $('#deleteCoin #coinImg').attr({
+        src: allCoinInfo['coinImg'],
+        });
+        modal.modal('show');
+    }
+    
 </script>

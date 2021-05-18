@@ -122,10 +122,6 @@
             </div>
         </div>
 
-        <div hidden class="loading" name="spin">
-            <div class="loader" style="top: 10cm"></div>
-        </div>
-
     <!-- Modal Excluir Criptomoeda -->
     <div class="modal fade" id="deleteCoin" tabindex="-1" aria-labelledby="deleteCoin" aria-hidden="true">
         <form class="form" id="deleteCoinForm" nome="deleteCoinForm" role="form" autocomplete="off" method="POST" action="{{ route('moeda.excluir') }}" >
@@ -156,11 +152,15 @@
             <div class="modal-footer">
                 <fieldset class="w-100">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>  
-                <button type="submit" class="btn btn-danger">Excluir</button> 
+                <button type="submit" class="btn btn-danger" onclick="showSpin()">Excluir</button> 
                 <fieldset>   
             </div>
         </form>
           </div>
+        </div>
+
+        <div hidden class="loading" name="spin">
+            <div class="loader" style="top: 10cm"></div>
         </div>
       </div>
 

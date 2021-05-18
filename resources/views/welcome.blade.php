@@ -11,14 +11,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>CriptoME</title>
-
-        <!-- bootstrap -->
-        <link rel="stylesheet" href="{{ asset('site/bootstrap.css') }}" >
-        <script src="{{ asset('site/bootstrap.js') }}"></script>
-        <script src="{{ asset('site/jquery.js') }}"></script>
     </head>
     <body>
-
         <nav class="navbar navbar-expand-md navbar-dark bg-primary mb-3" id="header" name="header">
             <div class="flex-row d-flex">
                 <button type="button" class="navbar-toggler mr-2 " data-toggle="offcanvas" title="Toggle responsive left sidebar">
@@ -107,5 +101,9 @@
             </div>
         
         </div>
+                <!-- bootstrap -->
+                <link rel="stylesheet" href="{{ asset('site/bootstrap.css') }}" >
+                <script src="{{ asset('site/bootstrap.js') }}"></script>
+                <script src="{{ asset('site/jquery.js') }}"></script>
     </body>
 </html>

@@ -31,7 +31,10 @@
                                 </div>
 
                                 <div class="card-body">
-                                    
+
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert" hidden id="LimitAlert" >
+                                         Só é possível selecionar <Strong>6</Strong> criptomoeda por vez.
+                                      </div>
 
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -136,5 +139,23 @@ function searchCoin() {
         }
         myText.removeAttribute("hidden"); 
     }
+</script>
+
+<script>
+var limit = 6;
+var alert = document.getElementById("LimitAlert");
+    $('input[type=checkbox]').on('change', function (e) {
+    var LimitLenght = $('input[type=checkbox]:checked').length;
+        switch (LimitLenght) {
+        case limit+1:
+            $(this).prop('checked', false);
+            alert.removeAttribute("hidden");
+            break;
+
+        default:
+            alert.setAttribute("hidden", true);
+            break;
+    }
+});
 </script>
 </html>
